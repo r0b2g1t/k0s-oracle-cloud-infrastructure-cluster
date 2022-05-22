@@ -1,1 +1,1 @@
-# k0s-oracle-cloud-infrastructure-cluster
+# k0s Oracle Cloud Infrastructure Cluster
