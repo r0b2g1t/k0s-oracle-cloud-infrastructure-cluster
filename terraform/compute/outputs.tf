@@ -1,7 +1,17 @@
-output "ad" {
-  value = data.oci_identity_availability_domain.ad_2.name
+output "controller" {
+  value = [
+    for controller in oci_core_instance.controller : controller
+  ]
+  depends_on = [
+    oci_core_instance.controller
+  ]
 }
 
-output "cluster_token" {
-  value = random_string.cluster_token.result
+output "worker" {
+  value = [
+    for worker in oci_core_instance.worker : worker
+    ]
+  depends_on = [
+    oci_core_instance.worker
+  ]
 }
