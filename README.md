@@ -20,7 +20,7 @@ export TF_VAR_private_key_path="<PATH_TO_YOUR_PRIVATE_KEY>"
 export TF_VAR_ssh_authorized_keys='["<SSH_PUBLIC_KEY>"]'
 ```
 
-## Requirements:
+## Requirements
 - [Terraform](https://github.com/hashicorp/terraform)
 - [k0sctl](https://github.com/k0sproject/k0sctl)
 
