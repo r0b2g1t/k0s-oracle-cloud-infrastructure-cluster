@@ -17,7 +17,7 @@ resource "oci_core_instance" "controller" {
   }
   create_vnic_details {
     subnet_id  = var.cluster_subnet_id
-    nsg_ids    = [var.permit_ssh_nsg_id]
+    nsg_ids    = [var.permit_ssh_nsg_id, var.permit_k0s_api_nsg_id]
   }
   metadata = {
     "ssh_authorized_keys" = local.controller_instance_config.metadata.ssh_authorized_keys
@@ -44,7 +44,7 @@ resource "oci_core_instance" "worker" {
   }
   create_vnic_details {
     subnet_id = var.cluster_subnet_id
-    nsg_ids   = [var.permit_ssh_nsg_id]
+    nsg_ids   = [var.permit_ssh_nsg_id, var.permit_k0s_api_nsg_id]
   }
   metadata = {
     "ssh_authorized_keys" = local.worker_instance_config.metadata.ssh_authorized_keys

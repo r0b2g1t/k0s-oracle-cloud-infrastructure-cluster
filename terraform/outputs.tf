@@ -30,6 +30,17 @@ locals {
           role = host.freeform_tags["role"]
         }
       ]
+      k0s = {
+        config = {
+          spec = {
+            api = {
+              sans = [
+                module.compute.controller[0].public_ip
+              ]
+            }
+          }
+        }
+      }
     }
   }
 }

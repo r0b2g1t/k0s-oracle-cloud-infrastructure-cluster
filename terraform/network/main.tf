@@ -56,6 +56,12 @@ resource "oci_core_network_security_group" "permit_ssh" {
   display_name   = "Permit SSH"
 }
 
+resource "oci_core_network_security_group" "permit_k0s_api" {
+  compartment_id = var.compartment_id
+  vcn_id         = oci_core_vcn.cluster_network.id
+  display_name   = "K0s API"
+}
+
 resource "oci_core_network_security_group_security_rule" "permit_ssh" {
   network_security_group_id = oci_core_network_security_group.permit_ssh.id
   protocol                  = "6" // TCP
@@ -65,6 +71,20 @@ resource "oci_core_network_security_group_security_rule" "permit_ssh" {
     destination_port_range {
       max = 22
       min = 22
+    }
+  }
+  direction = "INGRESS"
+}
+
+resource "oci_core_network_security_group_security_rule" "permit_k0s_api" {
+  network_security_group_id = oci_core_network_security_group.permit_k0s_api.id
+  protocol                  = "6" // TCP
+  source                    = "0.0.0.0/0"
+  source_type               = "CIDR_BLOCK"
+  tcp_options {
+    destination_port_range {
+      max = 6443
+      min = 6443
     }
   }
   direction = "INGRESS"
