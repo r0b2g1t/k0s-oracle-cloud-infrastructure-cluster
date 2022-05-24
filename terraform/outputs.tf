@@ -19,9 +19,6 @@ locals {
           }
           hooks = {
             apply = {
-              before = [
-                "sudo chmod 666 /etc/environment"
-              ]
               after = [
                 "sudo chmod 644 /etc/environment"
               ]

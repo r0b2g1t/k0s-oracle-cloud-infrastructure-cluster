@@ -21,6 +21,7 @@ resource "oci_core_instance" "controller" {
   }
   metadata = {
     "ssh_authorized_keys" = local.controller_instance_config.metadata.ssh_authorized_keys
+    "user_data" = base64encode(file("${path.module}/templates/user_data.sh"))
   }
 }
 
@@ -47,6 +48,7 @@ resource "oci_core_instance" "worker" {
   }
   metadata = {
     "ssh_authorized_keys" = local.worker_instance_config.metadata.ssh_authorized_keys
+    "user_data" = base64encode(file("${path.module}/templates/user_data.sh"))
   }
   depends_on = [oci_core_instance.controller]
 }
