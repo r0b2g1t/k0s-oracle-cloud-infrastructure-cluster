@@ -31,8 +31,6 @@ locals {
     // Canonical-Ubuntu-20.04-aarch64-2021.12.01-0
     source_id   = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaerzsdjk2ahjgfgf2zxtxtnpl3n3ew6qse2g2lxnnumxui7hsmsja"
     source_type = "image"
-    controller_ip_1 = "10.0.0.11"
-    controller_ip_2 = "10.0.0.12"
     metadata = {
       "ssh_authorized_keys" = join("\n", var.ssh_authorized_keys)
     }
@@ -44,8 +42,6 @@ locals {
     // Canonical-Ubuntu-20.04-aarch64-2021.12.01-0
     source_id   = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaadlurdwl77zh7l5dlngngxjormr3xvqvapiaiv6gbuffo6dzfu6la"
     source_type = "image"
-    worker_ip_0 = "10.0.0.21"
-    worker_ip_1 = "10.0.0.22"
     metadata = {
       "ssh_authorized_keys" = join("\n", var.ssh_authorized_keys)
     }
