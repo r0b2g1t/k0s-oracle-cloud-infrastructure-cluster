@@ -38,6 +38,25 @@ locals {
                 module.compute.controller[0].public_ip
               ]
             }
+            extensions = {
+              helm = {
+                repositories = [
+                  {
+                  name = "traefik"
+                  url = "https://helm.traefik.io/traefik"
+                  }
+                ]
+                charts = [
+                  {
+                    name = "traefik"
+                    chartname = "traefik/traefik"
+                    version = "10.20.0"
+                    namespace = "traefik-system"
+                    values =  yamldecode(file("../services/traefik/config.yaml"))
+                  }
+                ]
+              }
+            }
           }
         }
       }
