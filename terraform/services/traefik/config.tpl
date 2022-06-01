@@ -1,23 +1,22 @@
 |
-  deployment:
-    enabled: true
-    kind: DaemonSet
-
-  ingressRoute:
-    dashboard:
-      enabled: false
-
   logs:
     general:
       level: ERROR
     access:
       enabled: true
-
-  dashboard:
-    enable: true
   additionalArguments: 
-    - "--api.dashboard=true"
     - "--providers.kubernetesingress.ingressclass=traefik-internal"
+    - "--ping"
+    - "--ping.entrypoint=web"
+    - "--serversTransport.insecureSkipVerify=true"
+
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "50Mi"
+    limits:
+      cpu: "300m"
+      memory: "150Mi"
 
   ports:
     traefik:
@@ -45,9 +44,4 @@
     type: LoadBalancer
     externalTrafficPolicy: Local
     externalIPs:
-      - 10.0.0.81
-
-
-  additionalArguments:
-    - "--ping"
-    - "--ping.entrypoint=web"
+      - ${load_balancer_ip}
