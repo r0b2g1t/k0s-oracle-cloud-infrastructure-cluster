@@ -1,4 +1,6 @@
 |
+  deployment:
+    replicas: 2
   logs:
     general:
       level: ERROR
@@ -42,6 +44,6 @@
   service:
     enabled: true
     type: LoadBalancer
-    externalTrafficPolicy: Local
-    externalIPs:
-      - ${load_balancer_ip}
+    spec:
+      externalTrafficPolicy: Local
+      loadBalancerIP: ${load_balancer_ip}
