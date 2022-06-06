@@ -44,7 +44,7 @@ terraform output -raw k0s_cluster | k0sctl apply --config -
 ```
 To get the kubeconfig run the following command:
 ```
-terraform output -raw k0s_cluster | k0sctl kubeconfig --config - > k0s.config
+terraform output -raw k0s_cluster | k0sctl kubeconfig --config - > ~/.kube/config
 ```
 
 Now you can use ```kubectl``` to manage your cluster and check the nodes:
@@ -69,12 +69,6 @@ kubectl create namespace longhorn-system
 helm install longhorn longhorn/longhorn --namespace longhorn-system
 ```
 
-Additionally, for both methods you have to remove local-path as default provisioner and set Longhorn as default:
-``` 
-kubectl patch storageclass local-path -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
-kubectl patch storageclass longhorn -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
-```
-
 Check the Longhorn ```storageclass```:
 ```
 kubectl get storageclass
@@ -86,51 +80,3 @@ kubectl port-forward deployment/longhorn-ui 8000:8000 -n longhorn-system
 ```
 
 Use this URL to access the interface: ```http://127.0.0.1:8000``` .
-
-## Automatically certificate creation via Let's Encrypt
-For propagating your services, it is strongly recommended to use SSL encryption. In this case you have to deploy certificates for all of your services which should be reachable at the internet. To fulfill this requirement you can use the [```cert-manager```](https://cert-manager.io/) deployment in the ```services\cert-manager``` folder.
-
-First, you have to execute the ```cert-manager.sh``` or the following commands:
-```
-helm repo add jetstack https://charts.jetstack.io
-helm repo update
-
-helm install \
-  cert-manager jetstack/cert-manager \
-  --namespace cert-manager \
-  --create-namespace \
-  --version v1.7.1 \
-  --set installCRDs=true
-```
-
-Second, add a cluster issuer by editing and deploy ```cluster_issuer.yaml```file by replacing it with your email address  and your domain:
-```
-...
-spec:
-  acme:
-    email: <your_email>@<your-domain>.<tld> # replace
-...
-```
-
-Finally, when you deploy a service you have to add an ingress resource. You can use the example file ```ingress_example.yaml``` and edit it for your service:
-```
-...
-spec:
-  rules:
-  - host: <subdomain>.<your-domain>.<tld>                # replace
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: <service-name>                    # replace
-          servicePort: 80
-  tls:
-  - hosts:
-    - <subdomain>.<your-domain>.<tld>                    # replace
-    secretName: <subdomain>-<your-domain>-<tld>-prod-tls # replace
-...
-```
-
-The last step needs to be done for every service. In this deployment step the cert-manager will handle the communication to Let's Encrypt and add the certificate to your service ingress resource.
-## To Do's
-- Terraform Load Balancer deployment
