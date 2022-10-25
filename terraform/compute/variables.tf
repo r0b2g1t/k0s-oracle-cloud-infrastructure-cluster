@@ -34,8 +34,8 @@ locals {
     shape_id = "VM.Standard.A1.Flex"
     ocpus    = 2
     ram      = 12
-    // Canonical-Ubuntu-20.04-aarch64-2021.12.01-0
-    source_id   = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaerzsdjk2ahjgfgf2zxtxtnpl3n3ew6qse2g2lxnnumxui7hsmsja"
+    // Canonical-Ubuntu-22.04-Minimal-aarch64-2022.08.16-0
+    source_id   = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaagmgvlgs6uexrh53be6qoe3bnhyavevpeyxrnd4xjmisc5km6hoia"
     source_type = "image"
     metadata = {
       "ssh_authorized_keys" = join("\n", var.ssh_authorized_keys)
@@ -45,8 +45,8 @@ locals {
     shape_id = "VM.Standard.E2.1.Micro"
     ocpus    = 1
     ram      = 1
-    // Canonical-Ubuntu-20.04-aarch64-2021.12.01-0
-    source_id   = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaadlurdwl77zh7l5dlngngxjormr3xvqvapiaiv6gbuffo6dzfu6la"
+    // Canonical-Ubuntu-22.04-Minimal-2022.08.16-0
+    source_id   = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaab7wzikexyvn5vv5goyi3sgq7bx4ndwjiw6out2rvnheuaupwopba"
     source_type = "image"
     metadata = {
       "ssh_authorized_keys" = join("\n", var.ssh_authorized_keys)
