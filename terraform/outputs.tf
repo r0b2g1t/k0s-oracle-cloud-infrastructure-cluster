@@ -31,6 +31,7 @@ locals {
         }
       ]
       k0s = {
+        // version = "1.24.6+k0s.0"
         config = {
           spec = {
             api = {
