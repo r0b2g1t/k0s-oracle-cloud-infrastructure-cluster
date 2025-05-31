@@ -3,9 +3,12 @@
     replicas: 2
   logs:
     general:
-      level: ERROR
+      level: INFO
     access:
       enabled: true
+  globalArguments:
+    - "--global.sendanonymoususage=false"
+    - "--global.checknewversion=false"
   additionalArguments: 
     - "--providers.kubernetesingress.ingressclass=traefik-internal"
     - "--ping"
